@@ -61,6 +61,7 @@ Additional services will be deployed incrementally.
 
 ## 📁 Repository Structure
 
+```
 esxi-7-homelab/
 │
 ├── 01-planning/
@@ -94,7 +95,7 @@ esxi-7-homelab/
 │   └── network-topology.png
 │
 └── README.md
-
+```
 
 Each directory contains step-by-step documentation of the lab build process.
 
