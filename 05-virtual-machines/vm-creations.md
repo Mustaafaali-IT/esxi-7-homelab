@@ -84,3 +84,30 @@ All VMs will follow these standards:
 - Deploy vCenter for centralized management
 
 This VM deployment process mirrors small business and entry-level enterprise infrastructure practices.
+
+## Update — Core VM Base OS Deployment Complete (Milestone)
+
+Successfully deployed and installed base operating systems for all planned core VMs:
+
+- WS2019-DC01
+  - 2 vCPU
+  - 6GB RAM
+  - 40GB disk (Thick provisioned)
+  - Windows Server 2019 Standard (Desktop Experience)
+
+- WS2019-SRV02
+  - 2 vCPU
+  - 6GB RAM
+  - 40GB disk (Thin provisioned)
+  - Windows Server 2019 Standard (Desktop Experience)
+
+- Ubuntu-SRV01
+  - 2 vCPU
+  - 4GB RAM
+  - 30GB disk (Thin provisioned)
+  - Ubuntu Server LTS
+  - OpenSSH Server installed
+
+All VMs boot successfully and are accessible via ESXi console.
+No roles or infrastructure services configured yet.
+Awaiting final architecture confirmation before promoting roles.

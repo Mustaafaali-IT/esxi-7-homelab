@@ -96,3 +96,21 @@ Planned upgrades:
 - Prepare for future vCenter deployment
 
 The current storage design provides a clean, scalable foundation for enterprise-style lab growth.
+
+---
+
+## Updates (to be cleaned up)
+
+Final map:
+
+Seagate HDD = ESXi boot
+
+Samsung EVO SSD = datastore-ssd01 (VM storage)
+
+## Update — Disk layout finalized (ESXi + SSD datastore)
+
+- **Seagate HDD**: ESXi 7.0U3 install/boot disk (host OS lives here)
+- **Samsung EVO SATA SSD**: Primary VM storage
+  - Datastore name: `datastore-ssd01`
+  - Format: VMFS6
+  - Disk use: full disk
