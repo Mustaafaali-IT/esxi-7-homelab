@@ -1,8 +1,10 @@
 # Hardware Overview
 
-## Host Machine
+This document outlines the physical host hardware used for the ESXi 7 homelab environment.
 
-This homelab is running VMware ESXi 7.0.3 on bare metal hardware.
+---
+
+## 🖥️ Host Machine Specifications
 
 ### CPU
 - Intel Core i5-8600K
@@ -10,38 +12,59 @@ This homelab is running VMware ESXi 7.0.3 on bare metal hardware.
 - 3.60 GHz Base Clock
 
 ### Memory
-- 32 GB RAM
+- 32 GB DDR4 RAM
 
-### Storage
-- Samsung SSD 850 (232.89 GiB usable)
-- Western Digital HDD (3TB)
+### Storage Layout
+
+| Device | Capacity | Purpose |
+|--------|----------|----------|
+| Seagate HDD | 500 GB | ESXi Hypervisor Installation |
+| Samsung 850 EVO SSD | 256 GB (232 GiB usable) | VM Datastore (Primary VM Storage) |
+
+Future expansion planned:
+- Additional 512GB–1TB SSD for increased VM capacity and performance.
 
 ### Network
-- Intel NIC(s) planned for production-grade stability
+- Onboard NIC (Intel-based)
+- Dedicated management network via vmk0
+- Future VLAN segmentation planned
 
 ### Motherboard
-- ASUS Z370 chipset board
+- ASUS Z370 Chipset
 
 ---
 
-## Purpose of This Lab
+## 📦 Storage Design Philosophy
 
-This ESXi host will be used to:
+The host separates the hypervisor from VM workloads:
 
-- Deploy 2x Windows Server 2019 VMs
-- Deploy 1x Ubuntu Linux VM
-- Practice enterprise virtualization concepts
-- Prepare for certifications
-- Simulate small enterprise infrastructure
+- ESXi is installed on a dedicated HDD.
+- All virtual machines run on SSD storage for improved performance.
+- Storage expansion will be implemented as VM workload requirements increase.
+
+This design mirrors small-business and entry-level enterprise infrastructure practices.
 
 ---
 
-## Why This Setup?
+## 🧠 Resource Planning Notes
 
-This configuration allows:
+With 32GB RAM and 6 physical cores, this host is capable of running:
 
-- Enterprise hypervisor experience (ESXi)
-- Active Directory lab environment
-- Networking practice
-- Windows + Linux administration
-- Storage and VM lifecycle management
+- 4–6 infrastructure VMs simultaneously
+- A full Active Directory lab environment
+- Mixed Windows and Linux workloads
+
+Resource allocation will be carefully managed to simulate real-world infrastructure planning.
+
+---
+
+## 🔮 Upgrade Path
+
+Planned upgrades include:
+
+- Additional SSD storage
+- Possible dedicated datastore separation
+- Potential vCenter deployment
+- Advanced networking segmentation
+
+This hardware configuration provides a strong foundation for virtualization and enterprise lab development.
