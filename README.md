@@ -18,6 +18,31 @@ This lab is designed to simulate a small business environment using real-world i
 
 ---
 
+## 🧭 Project Phasing Model
+
+This homelab is organized and documented in structured build phases.
+
+Each phase represents a defined milestone in the infrastructure deployment process.  
+Phases build on one another and simulate how real-world infrastructure projects are executed incrementally.
+
+The repository will be progressively reorganized into clear phase-based documentation:
+
+- Phase 1 – ESXi Installation & Core VM Deployment
+- Phase 2 – Network Design & Core Services (AD, DNS, DHCP, File Services)
+- Phase 3 -
+
+Each phase will contain:
+- Goals and objectives
+- Infrastructure design decisions
+- Step-by-step implementation notes
+- Concept explanations
+- Validation testing
+- Issues encountered and resolutions
+
+> Direct links to each phase document will be added here as phases are finalized.
+
+---
+
 ## 🖥️ Current Hardware Configuration
 
 **Host Machine**
@@ -64,35 +89,14 @@ Additional services will be deployed incrementally.
 ```
 esxi-7-homelab/
 │
-├── 01-planning/
-│   ├── hardware-overview.md
-│   ├── network-design.md
-│   └── project-scope.md
-│
-├── 02-installation/
+├── 01-esxi-and-vm/
+│   ├── esxi-and-vm-configuration.md
 │   ├── bios-configuration.md
-│   ├── esxi-installation.md
-│   └── initial-setup.md
+│   └── screenshots/
 │
-├── 03-networking/
-│   ├── vSwitch-configuration.md
-│   ├── port-groups.md
-│   └── vlan-setup.md
-│
-├── 04-storage/
-│   ├── datastore-configuration.md
-│   └── disk-layout.md
-│
-├── 05-virtual-machines/
-│   ├── vm-creation.md
-│   ├── templates.md
-│   └── snapshots.md
-│
-├── 06-troubleshooting/
-│   └── issues-and-fixes.md
-│
-├── diagrams/
-│   └── network-topology.png
+├── 02-network-and-services/
+│   ├── network-and-services-configuration.md
+│   └── screenshots/
 │
 └── README.md
 ```
