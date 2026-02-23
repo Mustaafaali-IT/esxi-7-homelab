@@ -6,7 +6,7 @@ This lab is designed to simulate a small business environment using real-world i
 
 ---
 
-## 🎯 Lab Objectives
+## Lab Objectives
 
 - Deploy VMware ESXi 7 on bare metal
 - Design and manage VM storage architecture
@@ -18,7 +18,7 @@ This lab is designed to simulate a small business environment using real-world i
 
 ---
 
-## 🧭 Project Phasing Model
+## Project Phasing Model
 
 This homelab is organized and documented in structured build phases.
 
@@ -27,9 +27,9 @@ Phases build on one another and simulate how real-world infrastructure projects 
 
 The repository will be progressively reorganized into clear phase-based documentation:
 
-- Phase 1 – ESXi Installation & Core VM Deployment
-- Phase 2 – Network Design & Core Services (AD, DNS, DHCP, File Services)
-- Phase 3 -
+- [Phase 1 – ESXi Installation & Core VM Deployment](01-esxi-and-vm/esxi-and-vm-configuration.md)
+- [Phase 2 – Network Design & Core Services (AD, DNS, DHCP, File Services)](02-network-and-services/network-and-services-configuration.md)
+
 
 Each phase will contain:
 - Goals and objectives
@@ -39,11 +39,9 @@ Each phase will contain:
 - Validation testing
 - Issues encountered and resolutions
 
-> Direct links to each phase document will be added here as phases are finalized.
-
 ---
 
-## 🖥️ Current Hardware Configuration
+## Current Hardware Configuration
 
 **Host Machine**
 - Intel i5-8600K (6 cores / 6 threads)
@@ -54,7 +52,7 @@ Each phase will contain:
 
 ---
 
-## 🗂️ Storage Design
+## Storage Design
 
 - ESXi installed on dedicated 500GB HDD
 - 256GB SSD used exclusively for VM storage (VMFS datastore)
@@ -62,7 +60,7 @@ Each phase will contain:
 
 ---
 
-## 🏗️ Planned Virtual Infrastructure
+## Planned Virtual Infrastructure
 
 Planned VM deployment (phased build):
 
@@ -84,7 +82,7 @@ Additional services will be deployed incrementally.
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 esxi-7-homelab/
@@ -105,7 +103,7 @@ Each directory contains step-by-step documentation of the lab build process.
 
 ---
 
-## 🚀 Long-Term Goals
+## Long-Term Goals
 
 - Implement vCenter Server (future phase)
 - Expand storage capacity
