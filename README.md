@@ -66,10 +66,10 @@ Planned VM deployment (phased build):
 
 | Role | OS | RAM Allocation |
 |------|----|----------------|
-| Domain Controller | Windows Server 2022 | 6GB |
-| File Server | Windows Server 2022 | 6GB |
-| DHCP Server | Windows Server 2022 | 4GB |
-| Exchange Server | Windows Server 2022 | 8GB |
+| Domain Controller | Windows Server 2019 | 6GB |
+| File Server | Windows Server 2019 | 6GB |
+| DHCP Server | Windows Server 2019 | 4GB |
+| Exchange Server | Windows Server 2019 | 8GB |
 | Windows Client | Windows 11 | 6GB |
 | Linux Server | Ubuntu 24.04 LTS | 4GB |
 
