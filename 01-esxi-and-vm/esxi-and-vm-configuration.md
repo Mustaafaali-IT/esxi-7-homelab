@@ -34,8 +34,8 @@ This phase establishes the virtualization foundation that all later infrastructu
 
 | VM Name         | OS                     | vCPU | RAM  | Disk | Provisioning | Notes |
 |----------------|-------------------------|------|------|------|--------------|------|
-| WS2019-DC01     | Windows Server 2019     | 2    | 6GB  | 40GB | Thick        | Candidate DC/DNS |
-| WS2019-SRV02    | Windows Server 2019     | 2    | 6GB  | 40GB | Thin         | Candidate File/DHCP |
+| WS2019-DC01     | Windows Server 2019     | 2    | 6GB  | 40GB | Thick        | DC/DNS |
+| WS2019-FS01    | Windows Server 2019     | 2    | 6GB  | 40GB | Thin         | File/DHCP |
 | Ubuntu-SRV01    | Ubuntu Server LTS       | 2    | 4GB  | 30GB | Thin         | OpenSSH enabled |
 
 **Note:** WS2019-DC01 was provisioned as Thick by default. This does not negatively impact lab functionality and was intentionally left unchanged.

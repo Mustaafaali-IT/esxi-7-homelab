@@ -94,7 +94,10 @@ esxi-7-homelab/
 │
 ├── 02-network-and-services/
 │   ├── network-and-services-configuration.md
+│   ├── ip-assignment.md
 │   └── screenshots/
+│
+├── troubleshooting.md
 │
 └── README.md
 ```
