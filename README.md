@@ -2,7 +2,7 @@
 
 Enterprise-style VMware ESXi 7 homelab built on physical hardware for hands-on virtualization, infrastructure, and systems administration practice.
 
-This lab is designed to simulate a small business environment using real-world infrastructure components including Active Directory, file services, DHCP, Exchange, Windows clients, and Linux servers.
+This lab is designed to simulate a small business environment using real-world infrastructure components including Active Directory, file services, DNS, DHCP, web servers, print server, Windows clients, and Linux-based Apache.
 
 ---
 
@@ -10,9 +10,9 @@ This lab is designed to simulate a small business environment using real-world i
 
 - Deploy VMware ESXi 7 on bare metal
 - Design and manage VM storage architecture
-- Build a multi-server Active Directory environment
-- Configure core infrastructure services (DNS, DHCP, File Server)
 - Deploy and manage Windows and Linux virtual machines
+- Build a multi-server Active Directory environment
+- Configure core infrastructure services (DNS, DHCP, File Server, Linux-based Apache, Web Server, Print Server, Windows Clients)
 - Practice enterprise-style resource allocation and capacity planning
 - Prepare for real-world systems administration and virtualization roles
 
@@ -64,21 +64,16 @@ Each phase will contain:
 
 Planned VM deployment (phased build):
 
-| Role | OS | RAM Allocation |
-|------|----|----------------|
-| Domain Controller | Windows Server 2019 | 6GB |
-| File Server | Windows Server 2019 | 6GB |
-| DHCP Server | Windows Server 2019 | 4GB |
-| Exchange Server | Windows Server 2019 | 8GB |
-| Windows Client | Windows 11 | 6GB |
-| Linux Server | Ubuntu 24.04 LTS | 4GB |
+## Planned VM Deployment
 
-Initial phase will begin with:
-- 1 Domain Controller
-- 1 Windows 11 client
-- 1 Ubuntu server
+| VM Name        | Roles / Services | OS | RAM |
+|----------------|--------------------------------------------|-------------------------|------|
+| WS2019-DC01    | Active Directory Domain Services, DNS | Windows Server 2019 | 6GB |
+| WS2019-FS01    | File Services, DHCP, Print Services | Windows Server 2019 | 6GB |
+| Ubuntu-SRV01   | Apache Web Server | Ubuntu Server 24.04 LTS | 4GB |
+| Win11-Client01 | Domain-Joined Client | Windows 11 | 6GB |
 
-Additional services will be deployed incrementally.
+Services will be deployed incrementally.
 
 ---
 

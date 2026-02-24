@@ -13,9 +13,9 @@ This phase establishes the virtualization foundation that all later infrastructu
 - Intel PRO/1000 GT NIC selected as primary adapter
 - Samsung EVO SATA SSD configured as primary VM datastore (`datastore-ssd01`)
 - Deployed and installed:
-  - WS2019-DC01
-  - WS2019-SRV02
-  - Ubuntu-SRV01 (OpenSSH enabled)
+  - Windows Server 2019 VM (WS2019-DC01)
+  - Windows Server 2019 VM (WS2019-FS01)
+  - Ubuntu Server 24.04 LTS VM (Ubuntu-SRV01)(OpenSSH enabled)
 
 ---
 
@@ -178,7 +178,7 @@ Storing ISOs inside datastore ensures:
 
 Each VM was created manually via:
 
-Virtual Machines → Create / Register VM → Create new virtual machine
+Virtual Machines -> Create / Register VM -> Create new virtual machine
 
 ### Configuration Decisions Explained
 
@@ -212,7 +212,7 @@ Reason:
 - AD + DNS require moderate RAM
 - File/DHCP services lightweight
 - Ubuntu Apache server lightweight
-- Host has 32GB total → safe margin
+- Host has 32GB total (Safe Margin)
 
 **Concept:**  
 Memory is reserved at runtime.
@@ -328,6 +328,9 @@ Phase 2 will introduce:
 - Apache installation on Ubuntu
 - Domain integration testing
 - Windows 11 client deployment
+- Web service an print service configuration
 
 Phase 1 establishes the foundation.
 Phase 2 builds identity and infrastructure services on top of it.
+
+[Click to see Phase 2 Documentations](02-network-and-services/network-and-services-configuration.md)
