@@ -49,7 +49,7 @@ The final environment will simulate a small enterprise network where:
 
 ## IP addressing plan
 
-For actual steps on IP assignment view the [IP assignment documentation](02-network-and-services/ip-assignment.md) 
+For actual steps on IP assignment view the [IP assignment documentation](ip-assignment.md) 
 
 The lab environment is deployed on the home network subnet:
 
