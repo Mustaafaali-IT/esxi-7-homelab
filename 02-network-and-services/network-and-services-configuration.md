@@ -49,7 +49,7 @@ The final environment will simulate a small enterprise network where:
 
 ## IP addressing plan
 
-For actual steps on IP assignment see [ip-assignment](02-network-and-services/ip-assignment.md) 
+For actual steps on IP assignment view the [IP assignment documentation](02-network-and-services/ip-assignment.md) 
 
 The lab environment is deployed on the home network subnet:
 
@@ -60,7 +60,11 @@ Default Gateway: 192.168.68.1
 ```
 
 The home router DHCP pool is configured as:
+
+```
 192.168.68.100 – 192.168.68.250  
+```
+
 
 To avoid IP conflicts, static IP addresses for infrastructure servers are assigned outside the DHCP range (below .100).
 
