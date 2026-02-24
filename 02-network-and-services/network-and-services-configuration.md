@@ -54,15 +54,18 @@ For actual steps on IP assignment view the [IP assignment documentation](ip-assi
 The lab environment is deployed on the home network subnet:
 
 ```
+
 Network: 192.168.68.0/24  
 Subnet Mask: 255.255.255.0  
-Default Gateway: 192.168.68.1  
+Default Gateway: 192.168.68.1 
+ 
 ```
 
 The home router DHCP pool is configured as:
 
 ```
 192.168.68.100 – 192.168.68.250  
+
 ```
 
 

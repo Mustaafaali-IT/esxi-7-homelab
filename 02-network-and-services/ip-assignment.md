@@ -93,13 +93,21 @@ once steps above are completed we can now assign static IP's to our Windows Serv
 6. Select **Use the following IP address**
 7. Enter the following:
 
-   - IP Address: 192.168.68.10  
-   - Subnet Mask: 255.255.255.0  
-   - Default Gateway: 192.168.68.1  
+```
+
+   IP Address: 192.168.68.10  
+   Subnet Mask: 255.255.255.0  
+   Default Gateway: 192.168.68.1  
+
+```
 
 8. Under **Use the following DNS server addresses**, enter:
 
-   - Preferred DNS Server: 192.168.68.10  
+```
+   
+   Preferred DNS Server: 192.168.68.10  
+
+```
 
 9. Click **OK**
 
@@ -128,7 +136,7 @@ Ensure:
 2. Edit that file with ``` sudo nano /etc/netplan/50-cloud-init.yaml ``` (Replace 50-cloud-init.yaml with file name)
 3. Modify configuration file with the following 
 
-	```
+```
 	
 	network:
   version: 2
@@ -145,13 +153,14 @@ Ensure:
         addresses:
           - 192.168.68.10
 		  
-	```
-	
+```
+
 4. Save with CTRL+O, Enter, CTRL+X
 5. Enter ``` sudo netplan try ```
 6. If no error, press ENTER to confirm
 
 **Note:** The ` /etc/netplan/ ` directory in Ubuntu stores network configuration files written in YAML format. Netplan is the network management utility used in modern Ubuntu Server versions to define IP addressing, gateways, DNS servers, and interface settings.
+
 **Note:** The ` sudo netplan try ` command temporarily applies new network configuration changes and allows you to test them before making them permanent.
 
 ---
