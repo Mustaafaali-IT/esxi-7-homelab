@@ -12,7 +12,7 @@ This lab is designed to simulate a small business environment using real-world i
 - Design and manage VM storage architecture
 - Deploy and manage Windows and Linux virtual machines
 - Build a multi-server Active Directory environment
-- Configure core infrastructure services (DNS, DHCP, File Server, Linux-based Apache, Web Server, Print Server, Windows Clients)
+- Configure core infrastructure services (DNS, DHCP, File Services, Linux-based Apache, Web Server, Print Server, Windows Clients)
 - Practice enterprise-style resource allocation and capacity planning
 - Prepare for real-world systems administration and virtualization roles
 
@@ -28,7 +28,7 @@ Phases build on one another and simulate how real-world infrastructure projects 
 The repository will be progressively reorganized into clear phase-based documentation:
 
 - [Phase 1 – ESXi Installation & Core VM Deployment](01-esxi-and-vm/esxi-and-vm-configuration.md)
-- [Phase 2 – Network Design & Core Services (AD, DNS, DHCP, File Services)](02-network-and-services/network-and-services-configuration.md)
+- [Phase 2 – Network Design & Core Services (DNS, DHCP, File Services, Linux-based Apache, Web Server, Print Server, Windows Clients)](02-network-and-services/network-and-services-configuration.md)
 
 
 Each phase will contain:
