@@ -43,7 +43,7 @@ In my environment:
 
 ---
 
-###DHCP Pool Range
+### DHCP Pool Range
 
 Before assigning IP addresses to the servers, we first need to identify the DHCP pool range to ensure we select static addresses outside of it. This information can be found by accessing your gateway router’s web interface and locating the "DHCP Settings" usually found within the "Advanced Settings" tab. In my case using my router's mobile app was sufficent.
 
