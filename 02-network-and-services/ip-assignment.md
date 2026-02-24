@@ -124,11 +124,12 @@ Ensure:
 
 ### Ubuntu Server
 
-1. Check the netplan file with ```ls /etc/netplan```
-2. Edit that file with ```sudo nano /etc/netplan/50-cloud-init.yaml``` (Replace 50-cloud-init.yaml with file name)
+1. Check the netplan file with ``` ls /etc/netplan ```
+2. Edit that file with ``` sudo nano /etc/netplan/50-cloud-init.yaml ``` (Replace 50-cloud-init.yaml with file name)
 3. Modify configuration file with the following 
 
 	```
+	
 	network:
   version: 2
   renderer: networkd
@@ -143,13 +144,15 @@ Ensure:
       nameservers:
         addresses:
           - 192.168.68.10
+		  
 	```
+	
 4. Save with CTRL+O, Enter, CTRL+X
-5. Enter ```sudo netplan try```
+5. Enter ``` sudo netplan try ```
 6. If no error, press ENTER to confirm
 
-**Note:** The `/etc/netplan/` directory in Ubuntu stores network configuration files written in YAML format. Netplan is the network management utility used in modern Ubuntu Server versions to define IP addressing, gateways, DNS servers, and interface settings.
-**Note:** The `sudo netplan try` command temporarily applies new network configuration changes and allows you to test them before making them permanent.
+**Note:** The ` /etc/netplan/ ` directory in Ubuntu stores network configuration files written in YAML format. Netplan is the network management utility used in modern Ubuntu Server versions to define IP addressing, gateways, DNS servers, and interface settings.
+**Note:** The ` sudo netplan try ` command temporarily applies new network configuration changes and allows you to test them before making them permanent.
 
 ---
 
@@ -163,15 +166,15 @@ The same validation process was performed on each machine.
 
 1. Ping Default Gateway (Verifies basic network connectivity to the router.)
 		
-		`ping 192.168.68.1`
+	``` ping 192.168.68.1 ```
 		
 2. Ping Domain Controller (Confirms server-to-server communication and DNS availability.)
 
-		`ping 192.168.68.10`
+	``` ping 192.168.68.10 ```
 		 
 4. External Connectivity Test (Optional)
 	
-		`ping 8.8.8.8`
+	``` ping 8.8.8.8 ```
 		
 All machines should successfully respond to tests
 
