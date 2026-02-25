@@ -81,7 +81,7 @@ Changed were made to WS2019-DC01
 
 ### Windows Server (WS2019-DC01)
 
-once steps above are completed we can now assign static IP's to our Windows Servers starting with the domain controller.
+Once steps above are completed we can now assign static IP's to our Windows Servers starting with the domain controller.
 
 1. Open **Control Panel**
 2. Navigate to:
@@ -187,5 +187,14 @@ The same validation process was performed on each machine.
 		
 All machines should successfully respond to tests
 
+---
+
+## Result
+
+All servers were successfully configured with static IP addresses outside of the DHCP pool range. 
+
+This ensures consistent network identification, prevents IP conflicts, and allows reliable communication between infrastructure services such as Active Directory, DNS, and future domain-joined machines.
+
+To view next steps, view the [Active Direectory and DNS documentation](ad-and-dns-configuration.md)
 
 

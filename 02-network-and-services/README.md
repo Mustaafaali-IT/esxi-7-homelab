@@ -25,9 +25,12 @@ The final environment will simulate a small enterprise network where:
 
 ## What was built
 
+In Progress
+
 ## Architecture snapshot
 
 ### Host
+
 - Hypervisor: VMware ESXi 7.0U3
 - Boot disk: 500GB Seagate HDD (ESXi installation)
 - VM datastore: 256GB Samsung EVO SSD (`datastore-ssd01`, VMFS6)
@@ -37,6 +40,7 @@ The final environment will simulate a small enterprise network where:
 ---
 
 ### VMs
+
 | VM Name         | Operating System        | vCPU | RAM | Disk  | Provisioning | Assigned Roles                 |
 |-----------------|------------------------|------|-----|-------|-------------|--------------------------------|
 | WS2019-DC01     | Windows Server 2019    | 2    | 6GB | 40GB  | Thick       | Active Directory, DNS         |
@@ -91,12 +95,42 @@ The DHCP scope will not overlap with static infrastructure addresses.
 
 ---
 
-## Build steps
+## Windows Hostname Change
 
-## Concepts (short explanations)
+Running the `hostname` command in the CLI showed that the Windows servers were assigned random default names.
 
-## Validation
+To align everything with the lab naming convention, the following PowerShell command was used:
 
-## Issues & fixes
+`Rename-Computer -NewName "Computer-Name" -Restart`
 
-## Next steps
+This ensured each server followed the proper naming structure and prevented confusion later when managing domain roles and services.
+
+---
+
+## Windows Server Active Directory and DNS
+
+For actual steps on Active Directory and DNS installation, configuration and verification, view the [Active Directory documentation](ad-and-dns-configuration.md).
+
+In this phase of the lab, a Windows Server 2019 virtual machine (WS2019-DC01) was promoted to a Domain Controller and configured with Active Directory Domain Services (AD DS) and DNS.
+
+This setup simulates a small enterprise domain where authentication, users, groups, and policies are all managed centrally. The domain controller serves as the core identity system for the lab, handling DNS and authentication for any machines that join the domain.
+
+This setup prepares the lab for:
+- Domain-joined servers and clients
+- Group Policy configuration
+- Role-based access control
+- File server permissions and shared resource management
+
+---
+
+## Windows Server File Service and DHCP
+
+For actual steps on File Service and DHCP installation, configuration, and verification, view the [File Service documentation](fs-and-dhcp-configuration.md).
+
+In this phase, WS2019-FS01 was configured to provide centralized file shari
+
+This setup prepares the lab for:
+- Domain-based file permissions using security groups
+- Centralized shared folders with controlled NTFS and share permissions
+- Automatic IP address assignment for client machines
+- Testing real-world small business network infrastructure scenarios
