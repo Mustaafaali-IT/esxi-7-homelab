@@ -28,7 +28,7 @@ Phases build on one another and simulate how real-world infrastructure projects 
 The repository will be progressively reorganized into clear phase-based documentation:
 
 - [Phase 1 – ESXi Installation & Core VM Deployment](01-esxi-and-vm/esxi-and-vm-configuration.md)
-- [Phase 2 – Network Design & Core Services (DNS, DHCP, File Services, Linux-based Apache, Web Server, Print Server, Windows Clients)](02-network-and-services/network-and-services-configuration.md)
+- [Phase 2 – Network Design & Core Services (DNS, DHCP, File Services, Linux-based Apache, Web Server, Print Server, Windows Clients)](02-network-and-services/README.md)
 
 
 Each phase will contain:
@@ -38,6 +38,32 @@ Each phase will contain:
 - Concept explanations
 - Validation testing
 - Issues encountered and resolutions
+
+---
+
+## Repository Structure
+
+```
+esxi-7-homelab/
+│
+├── 01-esxi-and-vm/
+│   ├── esxi-and-vm-configuration.md
+│   ├── bios-configuration.md
+│   └── screenshots/
+│
+├── 02-network-and-services/
+│   ├── README.md
+│   ├── ip-assignment.md
+│   ├── ad-and-dns-configuration.md
+│   ├── fs-and-dhcp-configuration.md
+│   └── screenshots/
+│
+├── troubleshooting.md
+│
+└── README.md
+```
+
+Each directory contains step-by-step documentation of the lab build process.
 
 ---
 
@@ -74,30 +100,6 @@ Planned VM deployment (phased build):
 | Win11-Client01 | Domain-Joined Client | Windows 11 | 6GB |
 
 Services will be deployed incrementally.
-
----
-
-## Repository Structure
-
-```
-esxi-7-homelab/
-│
-├── 01-esxi-and-vm/
-│   ├── esxi-and-vm-configuration.md
-│   ├── bios-configuration.md
-│   └── screenshots/
-│
-├── 02-network-and-services/
-│   ├── network-and-services-configuration.md
-│   ├── ip-assignment.md
-│   └── screenshots/
-│
-├── troubleshooting.md
-│
-└── README.md
-```
-
-Each directory contains step-by-step documentation of the lab build process.
 
 ---
 

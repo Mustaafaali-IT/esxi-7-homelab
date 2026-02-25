@@ -333,4 +333,4 @@ Phase 2 will introduce:
 Phase 1 establishes the foundation.
 Phase 2 builds identity and infrastructure services on top of it.
 
-[Click to see Phase 2 Documentations](02-network-and-services/network-and-services-configuration.md)
+[Click to see Phase 2 Documentations](02-network-and-services/README.md)
