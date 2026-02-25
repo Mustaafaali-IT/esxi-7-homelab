@@ -195,6 +195,6 @@ All servers were successfully configured with static IP addresses outside of the
 
 This ensures consistent network identification, prevents IP conflicts, and allows reliable communication between infrastructure services such as Active Directory, DNS, and future domain-joined machines.
 
-To view next steps, view the [Active Direectory and DNS documentation](ad-and-dns-configuration.md)
+To view next steps, view the [Active Directory and DNS documentation](ad-and-dns-configuration.md)
 
 

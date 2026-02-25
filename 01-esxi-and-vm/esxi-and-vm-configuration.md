@@ -42,11 +42,11 @@ This phase establishes the virtualization foundation that all later infrastructu
 
 ---
 
-# Detailed Implementation
+## Detailed Implementation
 
 ---
 
-## 1) ESXi Installation
+### 1) ESXi Installation
 
 - Booted from ESXi 7.0U3 installer USB
 - Selected Seagate HDD as installation target
@@ -54,23 +54,20 @@ This phase establishes the virtualization foundation that all later infrastructu
 - Removed installer USB
 - Verified host boots directly into ESXi
 
-**Concept:**  
-ESXi is a Type-1 (bare metal) hypervisor. It installs directly onto hardware and abstracts CPU, memory, storage, and networking for virtual machines.
-
 Separating ESXi (HDD) from VM storage (SSD) provides:
 - Clean role separation
 - Easier recovery
 - Better performance for workloads
 
+**Note:** ESXi is a Type-1 (bare metal) hypervisor. It installs directly onto hardware and abstracts CPU, memory, storage, and networking for virtual machines.
+
 ---
 
-## 2) ESXi Initial Networking Configuration
+### 2) ESXi Initial Networking Configuration
 
 Upon first boot, ESXi configures a default management network.
 
-### Key Components Reviewed:
-
-### vmk0 (VMkernel Adapter)
+#### vmk0 (VMkernel Adapter)
 
 - vmk0 is the default ESXi management interface.
 - It is responsible for:
@@ -83,17 +80,12 @@ I configured:
 - Subnet mask
 - Default gateway
 - DNS servers
-
-**Concept:**  
-A VMkernel adapter (vmkX) is not a normal VM network card.  
-It is used by the ESXi host itself to communicate.
-
-vmk0 is critical because:
-If its IP changes or fails, management access is lost.
+ 
+**Note:** A VMkernel adapter (vmkX) is not a normal VM network card. It is used by the ESXi host itself to communicate. vmk0 is critical because if its IP changes or fails, management access is lost.
 
 ---
 
-### vSwitch0
+#### vSwitch0
 
 ESXi automatically creates:
 
@@ -105,19 +97,13 @@ Structure looks like:
 
 Physical NIC (Intel PRO/1000 GT) -> vSwitch0 -> Management Network Port Group -> vmk0 (Management IP)
 
-**Concept:**  
-A vSwitch is a virtual Layer 2 switch inside ESXi.
+**Note:** A vSwitch is a virtual Layer 2 switch inside ESXi. It connects, physical NICs, VM network adapters, VMkernel adapters
 
-It connects:
-- Physical NICs
-- VM network adapters
-- VMkernel adapters
-
-Port groups act like VLAN segments or logical switch ports.
+**Note:** Port groups act like VLAN segments or logical switch ports.
 
 ---
 
-### Why Static IP Was Assigned
+#### Why Static IP Was Assigned
 
 The ESXi host must always be reachable.
 
@@ -130,7 +116,7 @@ Static IP ensures stable infrastructure foundation.
 
 ---
 
-## 3) Storage Configuration — Datastore Creation
+### 3) Storage Configuration — Datastore Creation
 
 Confirmed:
 - Samsung EVO SSD detected in BIOS
@@ -143,8 +129,7 @@ Created:
 - Name: `datastore-ssd01`
 - Used full disk capacity
 
-**Concept:**  
-A datastore is a logical container for VM files.
+**Note:** A datastore is a logical container for VM files.
 
 Each VM consists of:
 - .vmx (configuration file)
@@ -159,7 +144,7 @@ Using SSD improves:
 
 ---
 
-## 4) ISO Management
+### 4) ISO Management
 
 Uploaded installation media to:
 
@@ -174,17 +159,13 @@ Storing ISOs inside datastore ensures:
 
 ---
 
-## 5) VM Creation — Detailed Breakdown
+### 5) VM Creation — Detailed Breakdown
 
 Each VM was created manually via:
 
 Virtual Machines -> Create / Register VM -> Create new virtual machine
 
-### Configuration Decisions Explained
-
----
-
-### CPU Allocation (2 vCPU)
+#### CPU Allocation (2 vCPU)
 
 Each server allocated:
 - 2 virtual CPUs
@@ -194,16 +175,11 @@ Reason:
 - Prevent CPU overcommitment
 - Allow room for additional future VMs
 
-**Concept:**  
-vCPU represents a scheduling share of physical CPU cores.
-
-ESXi maps vCPUs to physical cores dynamically.
-
-Over-allocating CPU unnecessarily can reduce performance due to scheduling overhead.
+**Note:** vCPU represents a scheduling share of physical CPU cores. ESXi maps vCPUs to physical cores dynamically.
 
 ---
 
-### Memory Allocation
+#### Memory Allocation
 
 - Windows Servers: 6GB
 - Ubuntu Server: 4GB
@@ -213,12 +189,6 @@ Reason:
 - File/DHCP services lightweight
 - Ubuntu Apache server lightweight
 - Host has 32GB total (Safe Margin)
-
-**Concept:**  
-Memory is reserved at runtime.
-Over-allocating memory can reduce host flexibility.
-
-Balanced allocation prevents resource starvation.
 
 ---
 
@@ -232,9 +202,8 @@ Two provisioning types were used:
 #### Thin Provisioned (WS2019-SRV02, Ubuntu)
 - Disk grows as data is written
 
-**Concept:**  
-Thin provisioning conserves datastore space.
-Thick provisioning reserves full capacity up front.
+ 
+**Note:** Thin provisioning conserves datastore space. Thick provisioning reserves full capacity up front.
 
 In labs, thin is typically sufficient.
 
@@ -270,7 +239,7 @@ Network segmentation (VLANs) may be introduced in later phases.
 
 ---
 
-# Validation
+## Validation
 
 - ESXi management reachable via static IP
 - vmk0 correctly bound to Management Network
@@ -283,29 +252,7 @@ Network segmentation (VLANs) may be introduced in later phases.
 
 ---
 
-# Issues Encountered
-
-### SSD Not Detected
-Cause:
-- SATA power cable disconnected
-
-Resolution:
-- Reseated cable
-- SSD detected in BIOS and ESXi
-
----
-
-### Ubuntu Installer Loop
-Cause:
-- ISO still mounted to virtual CD/DVD
-
-Resolution:
-- Changed CD/DVD from datastore ISO to Host/Client device
-- Rebooted successfully
-
----
-
-# Phase 1 Outcome
+## Phase 1 Outcome
 
 At the conclusion of Phase 1:
 
@@ -317,15 +264,14 @@ At the conclusion of Phase 1:
 
 ---
 
-# Next Phase Preview
+## Next Phase Preview
 
 Phase 2 will introduce:
 
 - Static IP planning and assignment
 - Active Directory + DNS deployment
-- DHCP configuration
-- File Services configuration
-- Apache installation on Ubuntu
+- File Services configuration and DHCP
+- Apache web service Ubuntu
 - Domain integration testing
 - Windows 11 client deployment
 - Web service an print service configuration

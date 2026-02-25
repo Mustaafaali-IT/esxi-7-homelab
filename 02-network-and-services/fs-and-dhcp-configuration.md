@@ -14,9 +14,17 @@ DHCP services will be used to provide IP to joining client devices.
 
 ### Static IP Assignment
 
-Before installing Active Directory you must set a static IP address.
+Before configuring the File Server and DHCP you must have set a static IP address.
 
 See the [IP assignment documentation](ip-assignment.md) for steps on completion.
+
+---
+
+### Active Directory and DNS Configuration
+
+Before configuring File Server and DHCP you must have configured Active directory and DNS.
+
+See the [Active Directory documentation](ad-and-dns-configuration.md) for steps on completion.
 
 ---
 

@@ -95,18 +95,6 @@ The DHCP scope will not overlap with static infrastructure addresses.
 
 ---
 
-## Windows Hostname Change
-
-Running the `hostname` command in the CLI showed that the Windows servers were assigned random default names.
-
-To align everything with the lab naming convention, the following PowerShell command was used:
-
-`Rename-Computer -NewName "Computer-Name" -Restart`
-
-This ensured each server followed the proper naming structure and prevented confusion later when managing domain roles and services.
-
----
-
 ## Windows Server Active Directory and DNS
 
 For actual steps on Active Directory and DNS installation, configuration and verification, view the [Active Directory documentation](ad-and-dns-configuration.md).
