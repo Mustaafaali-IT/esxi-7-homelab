@@ -6,25 +6,17 @@ This document outlines the configuration of WS2019-FS01 and the steps taken to j
 
 This will allow the file server to authenticate users through Active Directory and operate as part of the lab’s centralized domain environment.
 
-DHCP services will be used to provide IP to joining client devices.
+DHCP services will be used to provide IPs to joining client devices.
 
 ---
 
 ## Prerequisites
 
-### Static IP Assignment
-
-Before configuring the File Server and DHCP you must have set a static IP address.
-
-See the [IP assignment documentation](ip-assignment.md) for steps on completion.
-
----
-
 ### Active Directory and DNS Configuration
 
 Before configuring File Server and DHCP you must have configured Active directory and DNS.
 
-See the [Active Directory documentation](ad-and-dns-configuration.md) for steps on completion.
+See the [Active Directory documentation](ad-and-dns-configuration.md) for details.
 
 ---
 
@@ -44,106 +36,111 @@ This ensured each server followed the proper naming structure and prevented conf
 
 ### 1) Initial Verification
 
-Before joining the file server to the domain, initial network and DNS validation was performed to ensure proper communication with the Domain Controller.
+Before joining the file server to the domain, internal network and DNS validation was performed to ensure proper communication with the Domain Controller.
 
 The following values were verified using `ipconfig /all`:
 
 ```
-
-IP Address: 192.168.68.20  
-Subnet Mask: 255.255.255.0  
-Default Gateway: 192.168.68.1  
-DNS Server: 192.168.68.10 (Domain Controller)
-
+IP Address: 192.168.11.20
+Subnet Mask: 255.255.255.0
+Default Gateway: (None – isolated network)
+DNS Server: 192.168.11.10 (Domain Controller)
 ```
 
-Basic network connectivity was validated:
+Validation performed:
 
-- Successful ping to gateway (192.168.68.1)
-- Successful ping to Domain Controller (192.168.68.10)
+- Successful ping to Domain Controller (192.168.11.10)
+- Confirmed correct DNS server assignment
 
-Name resolution was tested to confirm domain awareness:
+Name resolution testing:
 
 - `ping WS2019-DC01`
-- `nslookup lab.local`
 
-Successful resolution confirms that DNS is functioning correctly and the server can locate the domain services required for domain join.
+Successful resolution confirmed that DNS was functioning correctly and that the server could locate the domain services required for domain join.
 
 ---
 
 ### 2) Join FS01 to the Domain (lab.local)
 
-FS01 must be joined to the domain before installing and authorizing roles like DHCP.
+FS01 must be joined to the domain before installing and authorizing roles such as DHCP.
 
-1. On **WS2019-FS01**, open **Server Manager**.
-2. Click **Local Server**.
-3. Click the **Workgroup** value (ex. `WORKGROUP`) to open System Properties.
-4. Click **Change…**
+On **WS2019-FS01**:
+
+1. Open **Server Manager**
+2. Navigate to **Local Server**
+3. Select the current **Workgroup** value to open System Properties
+4. Click **Change**
 5. Select **Domain**, then enter:
    - `lab.local`
-6. When prompted for credentials, enter a domain admin account:
+6. When prompted, provide domain administrator credentials:
    - `LAB\Administrator`
-7. Confirm the success message (**Welcome to the lab.local domain**) and reboot FS01.
-8. Log in using a domain account (LAB\Administrator), then open Command Prompt and run:
+7. Confirm the success message and reboot the server
 
-	`echo %USERDOMAIN%`
-	
-	The output should be LAB
+After reboot, log in using a domain account and verify domain membership: `echo %USERDOMAIN%`
+
+Expected output: LAB
+
+This confirms successful domain join.
 
 ---
 
-### 3) File Server Role Installation 
+### 3) File Server Role Installation
 
-1. Open **Server Manager**
-2. Click **Manage** -> **Add Roles and Features**
-3. Select **Role-based or feature-based installation**
-4. Select a server from the server pool (WS2019-DC01)
-5. Navigate and enable:
-   - **File and Storage Services**
-   - **File and iSCSI Services**
-6. Ensure **File Server** role is selected
-7. Proceed through wizard and install.
-8. Confirm File Server role appears under **Server Manager -> Roles**
+After domain join, the File Server role was installed on WS2019-FS01.
+
+Installed components:
+
+- File and Storage Services
+- File and iSCSI Services
+- File Server role service
+
+Installation was completed using a role-based installation via Server Manager.
+
+Verification:
+
+- Confirmed the File Server role appears under **Server Manager -> Roles**
+- No installation errors were reported
 
 ---
 
 ## DHCP Installation, Configuration and Verification
 
-DHCP in a domain environement must be authroized in AD in order to serve leases to joining clients.
+In an Active Directory environment, DHCP servers must be authorized in AD before they can issue leases.
+
+---
 
 ### 1) Install DHCP Server Role
 
+On **WS2019-FS01**:
+
 1. Open **Server Manager**
-2. Click **Manage** -> **Add Roles and Features**
-3. Select **Role-based or feature-based installation**
-4. Select a server from the server pool (WS2019-FS01)
-5. Under **Server Roles**, select:
+2. Select **Add Roles and Features**
+3. Choose **Role-based or feature-based installation**
+4. Select WS2019-FS01 from the server pool
+5. Enable:
    - **DHCP Server**
-6. Click **Add Features**
-7. Continue through the wizard and click **Install**
+6. Complete installation
 
-After installation, a notification flag appears in Server Manager.
+After installation, the post-deployment configuration wizard was used to authorize the server in Active Directory.
 
-8. Click the **notification flag**
-9. Select **Complete DHCP configuration**
-10. When prompted for credentials, use:
-	
-	`LAB\Administrator`
-	
-4. Click **Commit**
-5. Click **Close**
+Authorization was completed using: `LAB\Administrator`
+
+---
 
 ### 2) Verification
 
-1. Open **Server Manager**
-2. Navigate to **Tools** -> **DHCP**
-3. Expand the server name
+To verify successful authorization:
 
-A green arrow next to the server confirms successful authorization in Active Directory.
+1. Open **Tools -> DHCP**
+2. Expand the server name
 
+A green arrow next to the server confirms it has been successfully authorized in Active Directory.
 
-**Note:** In a domain environment, a DHCP server must be authorized in Active Directory before it can start handing out IP addresses. If it is not authorized, the DHCP service will not issue any leases. This prevents unauthorized DHCP servers from distributing IPs and helps keep IP management controlled within the domain.
+If a DHCP server is not authorized in a domain environment, it will not issue leases. This mechanism ensures IP management remains controlled within the directory infrastructure.
+
+---
 
 ### 3) DHCP Scope
 
-We must create and configure the DHCP Scope so that the service has a pool of IP's to distrubute.
+A DHCP scope must be created and configured to define the pool of IP addresses that will be distributed to client machines.
+

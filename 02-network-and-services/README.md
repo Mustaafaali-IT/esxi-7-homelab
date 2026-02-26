@@ -27,6 +27,17 @@ The final environment will simulate a small enterprise network where:
 
 In Progress
 
+---
+
+## Order of Documentation
+
+1. [vSwitch Architecture](vswitch-architecture.md)
+2. [IP Assignment](ip-assignment.md)
+3. [Active Directory and DNS (WS2019-DC01)](ad-and-dns-configuration.md)
+4. [File Server and DHCP (WS2019-FS01)](fs-and-dhcp-configuration.md) 
+
+---
+
 ## Architecture snapshot
 
 ### Host
@@ -51,46 +62,38 @@ In Progress
 
 ---
 
-## IP addressing plan
+## IP Addressing Plan
 
-For actual steps on IP assignment view the [IP assignment documentation](ip-assignment.md) 
+For detailed configuration steps, see the [IP Assignment Documentation](ip-assignment.md).
 
-The lab environment is deployed on the home network subnet:
-
-```
-
-Network: 192.168.68.0/24  
-Subnet Mask: 255.255.255.0  
-Default Gateway: 192.168.68.1 
- 
-```
-
-The home router DHCP pool is configured as:
+The lab environment operates on an isolated internal subnet using a dedicated vSwitch with no physical uplink.
 
 ```
-192.168.68.100 – 192.168.68.250  
-
+Network: 192.168.11.0/24
+Subnet Mask: 255.255.255.0
+Default Gateway: None (isolated network)
 ```
 
-
-To avoid IP conflicts, static IP addresses for infrastructure servers are assigned outside the DHCP range (below .100).
+This design ensures:
+- No dependency on the home router
+- No external DHCP interference
+- Full control over internal IP allocation
 
 ---
 
-### Static Assignments
+### Static Infrastructure Assignments
 
+| Device Name   | Role                          | IP Address       | Subnet Mask      | Default Gateway | DNS Server       |
+|---------------|------------------------------|-----------------|-----------------|----------------|-----------------|
+| WS2019-DC01   | Domain Controller / DNS      | 192.168.11.10   | 255.255.255.0   | —              | 192.168.11.10   |
+| WS2019-FS01   | File Server / DHCP           | 192.168.11.20   | 255.255.255.0   | —              | 192.168.11.10   |
+| Ubuntu-SRV01  | Linux Server                 | 192.168.11.30   | 255.255.255.0   | —              | 192.168.11.10   |
 
-| Device Name        | Role              | IP Address        | Subnet Mask       | Default Gateway   | DNS Server        |
-|--------------------|------------------|------------------|------------------|------------------|------------------|
-| WS2019-DC01        | Domain Controller / DNS | 192.168.68.10   | 255.255.255.0    | 192.168.68.1     | 192.168.68.10     |
-| WS2019-FS01        | File Server / DHCP      | 192.168.68.20   | 255.255.255.0    | 192.168.68.1     | 192.168.68.10     |
-| Ubuntu-SRV01       | Linux Server            | 192.168.68.30   | 255.255.255.0    | 192.168.68.1     | 192.168.68.10     |
-
----
+Infrastructure servers use static IP assignments to ensure consistent service availability within the lab network.
 
 ### DHCP
 
-Client machines (Windows 11) will receive IP addresses dynamically from the DHCP server once deployed.  
+Client machines (Windows 11) will receive IP addresses dynamically from the DHCP server.  
 The DHCP scope will not overlap with static infrastructure addresses.
 
 ---

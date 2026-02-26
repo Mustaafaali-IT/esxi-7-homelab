@@ -4,24 +4,6 @@ This document records major issues encountered during the ESXi deployment proces
 
 ---
 
-## USB Keyboard Not Working During Installation
-
-### Issue
-During ESXi 6.5 installation, USB keyboard input stopped working at the installer screen.
-
-### Root Cause
-Older ESXi versions lacked proper USB controller driver support for the motherboard.
-
-### Resolution
-- Upgraded installer to ESXi 7.0.3
-- Confirmed Legacy USB Support enabled in BIOS
-- Verified UEFI boot mode
-
-### Lesson Learned
-Always use a supported ESXi version for modern hardware.
-
----
-
 ## Unable to Wipe Datastore (Device Busy)
 
 ### Issue
@@ -89,3 +71,17 @@ If ESXi Web UI:
 - But browser shows “connection refused”
 
 Try restarting the management network or temporarily switching to DHCP to force a clean network rebind after physical network changes.
+
+---
+
+## DHCP Conflict Risk Identified
+
+During DHCP configuration on the Windows Server, it was identified that the lab environment was operating within the same subnet as the home router.
+
+This introduced the risk of dual DHCP servers operating within the same broadcast domain, which can lead to unpredictable IP assignment behavior.
+
+### Resolution
+
+The network architecture was redesigned to use a dedicated vSwitch with no physical uplink, creating a fully isolated internal lab network.
+
+This eliminated any possibility of DHCP conflicts with the home router and provided a controlled testing environment.

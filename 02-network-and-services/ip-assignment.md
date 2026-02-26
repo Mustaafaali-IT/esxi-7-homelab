@@ -2,56 +2,61 @@
 
 ## Summary
 
-This document outlines how IP addresses were assigned to the Windows Servers, Ubuntu Server, and Windows 11 client. The Windows and Ubuntu servers were manually configured with static IP addresses outside of the DHCP pool range. This ensures the DHCP server does not automatically assign an IP address that is already being used by a server.
+This document outlines how IP addresses were assigned within the isolated lab network.
 
-### Static IP Assignment Summary
+The lab operates on a dedicated internal subnet (192.168.11.0/24) attached to a vSwitch with no physical uplink. All infrastructure servers were manually configured with static IP addresses to ensure consistent service availability. Client machines receive IP addresses dynamically from the Windows DHCP server.
 
-| Device Name        | Role              | IP Address        | Subnet Mask       | Default Gateway   | DNS Server        |
-|--------------------|------------------|------------------|------------------|------------------|------------------|
-| WS2019-DC01        | Domain Controller / DNS | 192.168.68.10   | 255.255.255.0    | 192.168.68.1     | 192.168.68.10     |
-| WS2019-FS01        | File Server / DHCP      | 192.168.68.20   | 255.255.255.0    | 192.168.68.1     | 192.168.68.10     |
-| Ubuntu-SRV01       | Linux Server            | 192.168.68.30   | 255.255.255.0    | 192.168.68.1     | 192.168.68.10     |
-| Windows 11 Client  | Domain-Joined Client    | DHCP Assigned   | 255.255.255.0    | 192.168.68.1     | 192.168.68.10     |
+Static addressing for core infrastructure prevents IP conflicts and ensures critical services such as Active Directory, DNS, and DHCP remain reachable at predictable addresses.
 
 ---
 
-## Identifying Network Information
+## Lab Network Overview
 
-Before assigning static IP addresses, the following information must be confirmed:
+```
+Network: 192.168.11.0/24
+Subnet Mask: 255.255.255.0
+Default Gateway: None (isolated internal network)
+```
 
-- Default Gateway
-- Subnet Mask
-- DHCP Pool Range
-
-### Finding the Default Gateway & Subnet Mask (Windows)
-
-On a Windows machine connected to the network:
-
-1. Open Command Prompt
-2. Run: ipconfig
-
-Look for:
-
-- **Default Gateway** -> This is your router’s IP address
-- **Subnet Mask** -> Defines the network size
-- **IPv4 Address** -> Current device IP
-
-In my environment:
-
-- Default Gateway: 192.168.68.1
-- Subnet Mask: 255.255.255.0
+This network is fully isolated from the home router. There is no external DHCP server or internet connectivity at this stage.
 
 ---
 
-### DHCP Pool Range
+## Static IP Assignment Planning
 
-Before assigning IP addresses to the servers, we first need to identify the DHCP pool range to ensure we select static addresses outside of it. This information can be found by accessing your gateway router’s web interface and locating the "DHCP Settings" usually found within the "Advanced Settings" tab. In my case using my router's mobile app was sufficent.
+| Device Name       | Role                         | IP Address       | Subnet Mask      | Default Gateway | DNS Server       |
+|------------------|------------------------------|-----------------|-----------------|----------------|-----------------|
+| WS2019-DC01      | Domain Controller / DNS      | 192.168.11.10   | 255.255.255.0   | —              | 192.168.11.10   |
+| WS2019-FS01      | File Server / DHCP           | 192.168.11.20   | 255.255.255.0   | —              | 192.168.11.10   |
+| Ubuntu-SRV01     | Linux Server                 | 192.168.11.30   | 255.255.255.0   | —              | 192.168.11.10   |
+| Windows 11 Client| Domain-Joined Client         | DHCP Assigned   | 255.255.255.0   | —              | 192.168.11.10   |
+
+Infrastructure servers use static IP assignments.  
+Client machines obtain addresses dynamically from the internal DHCP scope to be configured on WS2019-FS01.
+
+---
+
+### DHCP Scope Planning (Internal DHCP Server)
+
+Since the lab is isolated, DHCP is provided by WS2019-FS01 instead of a home router.
+
+The internal DHCP scope was planned as follows:
 
 ```
-DHCP Pool Range: 192.168.68.100 – 192.168.68.250
-
-Available Static Range: 192.168.68.2 – 192.168.68.99
+DHCP Scope Range: 192.168.11.100 – 192.168.11.200
 ```
+
+This pool range is necessary to plan in order to avoid conflicts when assigning static IPs.
+
+---
+
+## Prerequisites
+
+### vSwitch Configuration
+
+Before configuring static IP's a vSwitch with no uplink was configured to isolate the network from the home network.
+
+See the [vSwitch Architecture document](vswitch-architecture.md) for details.
 
 ---
 
@@ -65,79 +70,105 @@ By default, Windows Defender Firewall blocked certain inbound traffic. To ensure
 
 ---
 
-### Steps to Modify Windows Firewall Rules
+## Windows Firewall Configuration (WS2019-DC01)
 
-Changed were made to WS2019-DC01
+To allow basic network diagnostics within the isolated lab network, ICMPv4 echo requests were enabled on the Domain Controller.
 
-1. Open **Windows Defender Firewall**
-2. On the left hand side click **Advanced settings**
-3. Click **Inbound Rules**
-4. Locate the service **File and Printer Sharing (Echo Request - ICMPv4-In)**
-5. Right-click -> **Enable Rule**
+This allows other lab machines to successfully ping the DC for connectivity verification.
 
----
+### Action Performed
 
-## Configuring a Static IP Addresses
+- Opened **Windows Defender Firewall with Advanced Security**
+- Navigated to **Inbound Rules**
+- Enabled rule:
+  - **File and Printer Sharing (Echo Request – ICMPv4-In)**
 
-### Windows Server (WS2019-DC01)
-
-Once steps above are completed we can now assign static IP's to our Windows Servers starting with the domain controller.
-
-1. Open **Control Panel**
-2. Navigate to:
-   - Network and Internet  
-   - Network and Sharing Center  
-3. Click **Change adapter settings**
-4. Right-click the active network adapter -> Select **Properties**
-5. Select **Internet Protocol Version 4 (TCP/IPv4)** -> Click **Properties**
-6. Select **Use the following IP address**
-7. Enter the following:
-
-```
-
-   IP Address: 192.168.68.10  
-   Subnet Mask: 255.255.255.0  
-   Default Gateway: 192.168.68.1  
-
-```
-
-8. Under **Use the following DNS server addresses**, enter:
-
-```
-   
-   Preferred DNS Server: 192.168.68.10  
-
-```
-
-9. Click **OK**
-
-**Note:** it is improtant to select an IP address outside of the DHCP pool range.
+This permits ICMP traffic within the internal lab subnet only.
 
 ---
 
-### Windows Server (WS2019-FS01)
+## Configuring Static IP Addresses
 
-Follow the same steps outlined above for configuring a static IP address.
+### Windows Server – WS2019-DC01 (Domain Controller)
 
-However, assign a different IP address within the available static range (outside of the DHCP pool) to avoid conflicts.
+After verifying network connectivity and firewall configuration, a static IP address was assigned to the Domain Controller.
 
-Ensure:
-- The subnet mask matches the network
-- The default gateway remains the router’s IP
-- The DNS server points to the Domain Controller
-
-**Note:** In an Active Directory environment, the Domain Controller also functions as the DNS server. Active Directory relies on DNS to locate domain services such as authentication, LDAP, and other directory resources. For this reason, all domain-joined servers and clients must use the Domain Controller as their primary DNS server.
+Static configuration ensures that core infrastructure services remain reachable at a consistent address.
 
 ---
 
-### Ubuntu Server
-
-1. Check the netplan file with ``` ls /etc/netplan ```
-2. Edit that file with ``` sudo nano /etc/netplan/50-cloud-init.yaml ``` (Replace 50-cloud-init.yaml with file name)
-3. Modify configuration file with the following 
+### Configuration Applied
 
 ```
-	
+IP Address: 192.168.11.10
+Subnet Mask: 255.255.255.0
+Default Gateway: (None – isolated network)
+Preferred DNS Server: 192.168.11.10
+```
+
+---
+
+### Key Notes
+
+- The Domain Controller points to itself for DNS.
+- In an Active Directory environment, DNS is critical for locating domain services such as authentication and LDAP.
+- No default gateway is configured because the lab operates on an isolated vSwitch with no external routing.
+
+---
+
+### Windows Server – WS2019-FS01 (File Server / DHCP)
+
+The File Server was also configured with a static IP address to ensure consistent availability for file shares and DHCP services.
+
+---
+
+### Configuration Applied
+
+```
+IP Address: 192.168.11.20
+Subnet Mask: 255.255.255.0
+Default Gateway: (None – isolated network)
+Preferred DNS Server: 192.168.11.10
+```
+
+---
+
+### Important
+
+All domain-joined systems must use the Domain Controller (192.168.11.10) as their primary DNS server.
+
+Active Directory relies on DNS for:
+
+- Domain controller discovery  
+- Authentication services  
+- Service location (SRV records)  
+- LDAP communication  
+
+For this reason, the DNS server should never point to an external resolver in an AD environment.
+
+---
+
+### Ubuntu Server – Static IP Configuration (Ubuntu-SRV01)
+
+The Ubuntu Server was configured with a static IP address using Netplan to ensure consistent network identification within the isolated lab environment.
+
+---
+
+### Identify Netplan Configuration File
+
+First, confirm the active Netplan configuration file: `ls /etc/netplan`
+
+Edit the appropriate YAML file (example shown below):
+
+`sudo nano /etc/netplan/50-cloud-init.yaml`
+
+---
+
+### Configuration Applied
+
+The following static configuration was defined:
+
+```
 	network:
   version: 2
   renderer: networkd
@@ -145,56 +176,58 @@ Ensure:
     ens160:
       dhcp4: false
       addresses:
-        - 192.168.68.30/24
-      routes:
-        - to: default
-          via: 192.168.68.1
+        - 192.168.11.30/24
       nameservers:
         addresses:
           - 192.168.68.10
-		  
 ```
 
-4. Save with CTRL+O, Enter, CTRL+X
-5. Enter ``` sudo netplan try ```
-6. If no error, press ENTER to confirm
+Notes:
 
-**Note:** The ` /etc/netplan/ ` directory in Ubuntu stores network configuration files written in YAML format. Netplan is the network management utility used in modern Ubuntu Server versions to define IP addressing, gateways, DNS servers, and interface settings.
+- `dhcp4: false` disables automatic IP assignment
+- `192.168.11.30/24` assigns a static IP within the reserved infrastructure range
+- DNS points to the Domain Controller (192.168.11.10)
+- No default gateway is configured, as the lab network is isolated with no external routing
 
-**Note:** The ` sudo netplan try ` command temporarily applies new network configuration changes and allows you to test them before making them permanent.
+---
+
+### Apply Configuration
+
+After saving the file: `sudo netplan try`
+
+If no errors are returned, press **ENTER** to confirm and apply permanently.
 
 ---
 
 ## Network Connectivity Testing
 
-After configuring static IP addresses and DNS settings on all servers, connectivity must be tested to ensure proper communication across the network.
+After configuring static IP addresses on all infrastructure servers, connectivity was validated within the isolated subnet.
 
-The same validation process was performed on each machine.
+Since the lab operates without a gateway or internet access, only internal communication was tested.
+
+---
 
 ### Tests Performed
 
-1. Ping Default Gateway (Verifies basic network connectivity to the router.)
-		
-	``` ping 192.168.68.1 ```
-		
-2. Ping Domain Controller (Confirms server-to-server communication and DNS availability.)
+1. Verify IP assignment: `ip a`
+2. Ping Domain Controller (DNS + internal communication test): `ping 192.168.11.10`
 
-	``` ping 192.168.68.10 ```
-		 
-4. External Connectivity Test (Optional)
-	
-	``` ping 8.8.8.8 ```
-		
-All machines should successfully respond to tests
+All infrastructure servers successfully communicated within the 192.168.11.0/24 network.
 
 ---
 
 ## Result
 
-All servers were successfully configured with static IP addresses outside of the DHCP pool range. 
+All servers were successfully configured with static IP addresses within the reserved infrastructure range.
 
-This ensures consistent network identification, prevents IP conflicts, and allows reliable communication between infrastructure services such as Active Directory, DNS, and future domain-joined machines.
+This ensures:
 
-To view next steps, view the [Active Directory and DNS documentation](ad-and-dns-configuration.md)
+- Consistent network identification
+- No dependency on external DHCP
+- Reliable communication between AD, DNS, DHCP, and internal services
+
+The isolated subnet provides a controlled environment for testing domain services and future lab expansion.
+
+To continue, see the [Active Directory and DNS documentation](ad-and-dns-configuration.md).
 
 

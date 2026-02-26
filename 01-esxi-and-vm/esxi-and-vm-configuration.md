@@ -1,7 +1,8 @@
 # Phase 1 — ESXi Install + Core VM Deployment
 
-## Goal
-Install VMware ESXi 7.0U3 on bare metal hardware, configure foundational host networking and storage, and deploy the required virtual machines (2x Windows Server 2019, 1x Ubuntu Server LTS).
+## Summary
+
+Installed VMware ESXi 7.0U3 on bare metal hardware, configured foundational host networking and storage, and deployed the required initial virtual machines (2x Windows Server 2019, 1x Ubuntu Server LTS).
 
 This phase establishes the virtualization foundation that all later infrastructure services will depend on.
 
@@ -41,10 +42,13 @@ This phase establishes the virtualization foundation that all later infrastructu
 **Note:** WS2019-DC01 was provisioned as Thick by default. This does not negatively impact lab functionality and was intentionally left unchanged.
 
 ---
+## BIOS Configuration
 
-## Detailed Implementation
+For details on BIOS configuration see the [BIOS configuration documentation](bios-configuration.md) 
 
 ---
+
+## Detailed Implementation
 
 ### 1) ESXi Installation
 

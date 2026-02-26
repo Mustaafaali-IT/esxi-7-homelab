@@ -2,7 +2,7 @@
 
 ## Summary
 
-This document outlines the installation, promotion and verifiaction of Active Directory on the Windows Server DC (WS2019-DC01).
+This document outlines the installation, promotion and verification of Active Directory and DNS on the Windows Server DC (WS2019-DC01).
 
 This Windows Server will act as the "brain" of the network and centrally manage authentication, users, groups, and policies for any machines that join the domain.
 
@@ -30,110 +30,93 @@ This ensured each server followed the proper naming structure and prevented conf
 
 ---
 
-## Installation, Configuration and Verifiaction
+## Active Directory Deployment (WS2019-DC01)
 
-### 1) Initial Verification
+### Objective
 
-Before installing Active Directory, The following values were verified using `ipconfig /all`:
+Deploy a Windows Server 2019 Domain Controller to provide centralized authentication, directory services, and DNS resolution for the lab environment.
+
+---
+
+## Initial Network Verification (Isolated Lab Network)
+
+Before installing Active Directory, network configuration was verified to ensure the server was properly attached to the isolated lab vSwitch.
+
+The lab network operates on:
+
+Network: 192.168.11.0/24  
+Role: Internal isolated subnet (no physical uplink)
+
+Using `ipconfig /all`, the following values were confirmed:
 
 ```
-
-IP Address: 192.168.68.10  
-Subnet Mask: 255.255.255.0  
-Default Gateway: 192.168.68.1  
-Preferred DNS: 192.168.68.10 (self)
-
+IP Address: 192.168.11.10
+Subnet Mask: 255.255.255.0
+Default Gateway: (None – isolated network)
+Preferred DNS: 192.168.11.10 (self)
 ```
 
-- Confirmed gateway connectivity using:
-  - `ping 192.168.68.1`
+### Verification Performed
 
-- Confirmed internet connectivity using:
-  - `ping 8.8.8.8`
+- Confirmed IP configuration matched planned static assignment
+- Verified network adapter was attached to the LAB-ISOLATED port group
+- Confirmed no external gateway was present (expected for isolated design)
 
-These checks ensured the server had stable network connectivity before role installation.
+At this stage, internet connectivity is intentionally unavailable.  
+All communication is restricted to internal lab systems.
 
----
-
-### 2) Active Directory Installation
-
-1. Open **Server Manager**
-2. Click **Manage** (top right)
-3. Select **Add Roles and Features**
-4. Click **Next** 
-5. Select **Role-based or feature-based installation**
-6. Click **Next**
-7. Select a server from the server pool (WS2019-DC01)
-8. Click **Next**
-9. Under **Server Roles**, check:
-   - Active Directory Domain Services
-10. Click **Add Features** when prompted
-11. Click **Next**
-12. Leave Features as default -> Click **Next**
-13. Click **Next** (AD DS information page)
-14. Click **Install**
-
-Wait for installation to complete.
-
-Do NOT close Server Manager yet. Do NOT reboot the PC yet.
+These checks ensured the server had stable internal network configuration before proceeding with AD DS installation.
 
 ---
 
-### 3) Promote Server to Domain Controller and Configure
+## AD DS Role Installation
 
-After installation finishes:
+The **Active Directory Domain Services (AD DS)** role was installed on `WS2019-DC01` using a role-based installation.
 
-1. In Server Manager (top right), click the **flag notification icon**
-2. Click **Promote this server to a domain controller**
-3. Select:
-   - Add a new forest
-4. Enter your root domain name  
-   Example:
-   `lab.local`
-5. Click **Next**
-6. Leave defaults selected:
-   - Domain Name System (DNS) server
-   - Global Catalog (GC)
-7. Set a **Directory Services Restore Mode (DSRM) password**
-8. Click **Next**
-9. Ignore the delegation warning (normal in a lab)
-10. Click **Next**
-11. Confirm NetBIOS name (usually auto-filled)
-12. Click **Next**
-15. Review configuration
-16. Click **Next**
-17. Wait for prerequisites check to complete
-18. Click **Install**
+Installed components:
+- Active Directory Domain Services
+- DNS Server (automatically included during promotion)
 
-The server will automatically reboot.
+No additional features were manually selected beyond the defaults required for AD DS.
 
 ---
 
-### 4) Post-Installation Verification
+## Domain Controller Promotion & Forest Creation
 
-After reboot:
+After installing the AD DS role, the server was promoted to a Domain Controller.
 
-1. Log in using:
-   `LAB\Administrator`  
-   (Replace LAB with your domain name if different)
+Configuration details:
 
-2. Open **Server Manager**
-3. Confirm on the left hand side:
-   - AD DS role is installed
-   - DNS role is installed
+- Deployment type: **Add a new forest**
+- Root domain name: `lab.local`
+- DNS Server: Enabled
+- Global Catalog (GC): Enabled
+- Forest functional level: Windows Server 2016 (default)
+- Domain functional level: Windows Server 2016 (default)
+- DSRM (Directory Services Restore Mode) password: Configured
 
-4. Open:
-   - **Tools -> Active Directory Users and Computers**
-   - **Tools -> DNS**
+The DNS delegation warning was expected and ignored, as this is a standalone lab environment with no parent DNS zone.
 
-Verify your domain appears and forward lookup zone is created.
+After prerequisite checks completed successfully, the server was promoted and automatically rebooted.
 
-5. open **CMD** as administrator and run `dcdiag`
-	
-	We are looking for:
-	- All tests passed
-	- no critical failures.
-	
+---
+
+## Post-Installation Verification
+
+After reboot, the server was logged into using:
+
+`LAB\Administrator`
+
+Verification steps performed:
+
+- Confirmed AD DS and DNS roles were active in Server Manager
+- Opened **Active Directory Users and Computers** to confirm domain structure
+- Opened **DNS Manager** to verify:
+  - Forward Lookup Zone for `lab.local` was created
+  - Necessary SRV records were automatically registered
+
+Ran diagnostic testing:
+
 ---
 	
 ## Result
