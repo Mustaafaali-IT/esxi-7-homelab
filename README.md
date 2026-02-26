@@ -53,6 +53,7 @@ esxi-7-homelab/
 │
 ├── 02-network-and-services/
 │   ├── README.md
+│   ├── vswitch-architecture.md
 │   ├── ip-assignment.md
 │   ├── ad-and-dns-configuration.md
 │   ├── fs-and-dhcp-configuration.md
