@@ -176,4 +176,6 @@ The lab environment now supports centralized file services and automated IP addr
 
 ## Next steps
 
-Next, we will install, configure and join a Windows 11 client to the lab.local domain. To view next steps, view the [Windows 11 client documentation](Windows-Client.md)
+Next, we will install, configure and join a Windows 11 client to the lab.local domain. 
+
+To view next steps, view the [Windows 11 client documentation](Windows-Client.md)

@@ -62,6 +62,8 @@ This separation ensures:
 
 Intel adapters are preferred in ESXi environments due to strong native driver support and long-term stability.
 
+---
+
 ### Disabled NIC
 - Onboard Realtek Adapter: Disabled in BIOS
 

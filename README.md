@@ -28,7 +28,7 @@ Phases build on one another and simulate how real-world infrastructure projects 
 The repository will be progressively reorganized into clear phase-based documentation:
 
 - [Phase 1 – ESXi Installation & Core VM Deployment](01-esxi-and-vm/esxi-and-vm-configuration.md)
-- [Phase 2 – Network Design & Core Services (DNS, DHCP, File Services, Linux-based Apache, Web Server, Print Server, Windows Clients)](02-network-and-services/README.md)
+- [Phase 2 – Core Network and Domain Infrstructure (DNS, DHCP, File Services, Windows Clients)](02-core-network-and-domain/README.md)
 
 
 Each phase will contain:
@@ -51,7 +51,7 @@ esxi-7-homelab/
 │   ├── bios-configuration.md
 │   └── screenshots/
 │
-├── 02-network-and-services/
+├── 02-core-network-and-domain/
 │   ├── README.md
 │   ├── ip-assignment.md
 │   ├── ad-and-dns-configuration.md
@@ -107,7 +107,6 @@ Services will be deployed incrementally.
 
 - Implement vCenter Server (future phase)
 - Expand storage capacity
-- Introduce VLAN segmentation
 - Practice high-availability concepts
 - Build a realistic enterprise-style virtual infrastructure
 - Use lab as portfolio evidence for IT roles

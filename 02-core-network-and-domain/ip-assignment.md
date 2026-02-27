@@ -240,6 +240,10 @@ This ensures:
 
 The isolated subnet provides a controlled environment for testing domain services and future lab expansion.
 
+## Next Steps
+
+Next, we will install and configure Active DIrectory and DNS to our domain controller (WS2019-DC01). 
+
 To continue, see the [Active Directory and DNS documentation](ad-and-dns-configuration.md).
 
 

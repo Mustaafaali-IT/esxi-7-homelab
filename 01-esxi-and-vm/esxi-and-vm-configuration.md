@@ -14,6 +14,7 @@ This phase establishes the virtualization foundation that all later infrastructu
 - Intel PRO/1000 GT NIC selected as primary adapter
 - Samsung EVO SATA SSD configured as primary VM datastore (`datastore-ssd01`)
 - Deployed and installed:
+
   - Windows Server 2019 VM (WS2019-DC01)
   - Windows Server 2019 VM (WS2019-FS01)
   - Ubuntu Server 24.04 LTS VM (Ubuntu-SRV01)(OpenSSH enabled)
@@ -23,6 +24,7 @@ This phase establishes the virtualization foundation that all later infrastructu
 ## Architecture Snapshot
 
 ### Host
+
 - Hypervisor: VMware ESXi 7.0U3
 - Boot disk: 500GB Seagate HDD (ESXi installation)
 - VM datastore: 256GB Samsung EVO SSD (`datastore-ssd01`, VMFS6)
@@ -283,4 +285,4 @@ Phase 2 will introduce:
 Phase 1 establishes the foundation.
 Phase 2 builds identity and infrastructure services on top of it.
 
-[Click to see Phase 2 Documentations](../02-network-and-services/README.md)
+[Click to see Phase 2 Documentations](../02-core-network-and-domain/README.md)
