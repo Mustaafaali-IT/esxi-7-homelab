@@ -129,4 +129,8 @@ WS2019-DC01 is now:
 
 This server now handles authentication and identity management for the lab environment.
 
-To view next steps, view the [File System configuration documentation](fs-and-dhcp-configuration.md)
+---
+
+## Next steps
+
+Next, we will install and configure a file and DHCP server on WS2019-FS01. To view next steps, view the [File System configuration documentation](fs-and-dhcp-configuration.md)

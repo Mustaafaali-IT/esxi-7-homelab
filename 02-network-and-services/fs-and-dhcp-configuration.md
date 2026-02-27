@@ -140,7 +140,40 @@ If a DHCP server is not authorized in a domain environment, it will not issue le
 
 ---
 
-### 3) DHCP Scope
+### 3) DHCP Scope Configuration
 
-A DHCP scope must be created and configured to define the pool of IP addresses that will be distributed to client machines.
+A DHCP scope was created to define the range of IP addresses that will be distributed to client machines within the isolated lab network.
 
+The IPv4 scope was configured as follows:
+
+```
+Scope Range: 192.168.11.100 – 192.168.11.200
+Default Gateway: (None – isolated network)
+DNS Server: 192.168.11.10
+```
+
+This range provides sufficient dynamic IP addresses for domain-joined clients while keeping lower addresses reserved for static infrastructure systems.
+
+The separation between static and dynamic ranges ensures predictable addressing for servers and prevents accidental IP conflicts.
+
+The Windows Internet Name Service (WINS) option was intentionally skipped during configuration. WINS is a legacy NetBIOS name resolution service that predates DNS. Since Active Directory relies on DNS for service location and authentication, WINS is not required in this lab environment.
+
+---
+
+## Result
+
+The File Server and DHCP services were successfully installed, configured, and verified.
+
+- WS2019-FS01 was joined to the `lab.local` domain
+- The File Server role was installed without errors
+- The DHCP Server role was installed and authorized in Active Directory
+- The DHCP scope was created and configured for the 192.168.11.0/24 subnet
+- Internal DNS resolution and domain communication were verified
+
+The lab environment now supports centralized file services and automated IP address assignment within the isolated network. Infrastructure services (AD, DNS, DHCP, File Services) are operating cohesively within the 192.168.11.0/24 internal subnet.
+
+---
+
+## Next steps
+
+Next, we will install, configure and join a Windows 11 client to the lab.local domain. To view next steps, view the [Windows 11 client documentation](Windows-Client.md)

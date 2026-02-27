@@ -33,7 +33,8 @@ In Progress
 
 1. [IP Assignment](ip-assignment.md)
 2. [Active Directory and DNS (WS2019-DC01)](ad-and-dns-configuration.md)
-3. [File Server and DHCP (WS2019-FS01)](fs-and-dhcp-configuration.md) 
+3. [File Server and DHCP (WS2019-FS01)](fs-and-dhcp-configuration.md)
+4. [Windows 11 Client (W11-CL01)](Windows-Client.md) 
 
 ---
 
@@ -117,7 +118,7 @@ This setup prepares the lab for:
 
 For actual steps on File Service and DHCP installation, configuration, and verification, view the [File Service documentation](fs-and-dhcp-configuration.md).
 
-In this phase, WS2019-FS01 was configured to provide centralized file shari
+In this phase, WS2019-FS01 was configured to provide centralized file sharing and with DHCP services to lease IPs to joining clients.
 
 This setup prepares the lab for:
 - Domain-based file permissions using security groups
