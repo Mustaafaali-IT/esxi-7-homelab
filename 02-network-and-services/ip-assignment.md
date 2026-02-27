@@ -52,11 +52,23 @@ This pool range is necessary to plan in order to avoid conflicts when assigning 
 
 ## Prerequisites
 
-### vSwitch Configuration
+### vSwitch Creation (vSwitch-Lab)
 
-Before configuring static IP's a vSwitch with no uplink was configured to isolate the network from the home network.
+To isolate the lab environment from the home network, a new standard vSwitch named **vSwitch-Lab** was created in ESXi.
 
-See the [vSwitch Architecture document](vswitch-architecture.md) for details.
+This vSwitch was configured **without a physical uplink (no vmnic attached)**, meaning it does not connect to the home router or external network. All traffic on this switch remains internal to the ESXi host.
+
+A new port group named **LAB-ISOLATED** was then created and attached to vSwitch-Lab.
+
+All lab virtual machines (DC01, FS01, Ubuntu-SRV01,) were moved to this port group to ensure they operate exclusively within the 192.168.11.0/24 internal subnet.
+
+This design:
+
+- Prevents DHCP conflicts with the home router  
+- Keeps all lab traffic contained  
+- Creates a controlled environment for testing domain services  
+- Allows full control over IP addressing and network behavior
+
 
 ---
 

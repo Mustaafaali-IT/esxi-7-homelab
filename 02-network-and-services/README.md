@@ -31,10 +31,9 @@ In Progress
 
 ## Order of Documentation
 
-1. [vSwitch Architecture](vswitch-architecture.md)
-2. [IP Assignment](ip-assignment.md)
-3. [Active Directory and DNS (WS2019-DC01)](ad-and-dns-configuration.md)
-4. [File Server and DHCP (WS2019-FS01)](fs-and-dhcp-configuration.md) 
+1. [IP Assignment](ip-assignment.md)
+2. [Active Directory and DNS (WS2019-DC01)](ad-and-dns-configuration.md)
+3. [File Server and DHCP (WS2019-FS01)](fs-and-dhcp-configuration.md) 
 
 ---
 
