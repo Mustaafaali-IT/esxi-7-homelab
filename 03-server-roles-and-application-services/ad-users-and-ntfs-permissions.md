@@ -1,6 +1,6 @@
 # AD User Creation, File Share and NTFS Permissions
 
-##Summary
+## Summary
 
 This document covers creating domain users in Active Directory and setting up shared folders on the File Server with proper NTFS permissions.
 
