@@ -29,9 +29,11 @@ The repository will be progressively reorganized into clear phase-based document
 
 - [Phase 1 – ESXi Installation & Core VM Deployment](01-esxi-and-vm/esxi-and-vm-configuration.md)
 - [Phase 2 – Core Network and Domain Infrstructure (DNS, DHCP, File Services, Windows Clients)](02-core-network-and-domain/README.md)
+- [Pashe 3 - Server Roles & Application Services](03-server-roles-and-application-services/README.md)
 
 
 Each phase will contain:
+
 - Goals and objectives
 - Infrastructure design decisions
 - Step-by-step implementation notes
@@ -56,6 +58,11 @@ esxi-7-homelab/
 │   ├── ip-assignment.md
 │   ├── ad-and-dns-configuration.md
 │   ├── fs-and-dhcp-configuration.md
+│   └── screenshots/
+│
+├── 03-server-roles-and-application-services/
+│   ├── README.md
+│   ├── ad-users-and-ntfs-permissions.md
 │   └── screenshots/
 │
 ├── troubleshooting.md

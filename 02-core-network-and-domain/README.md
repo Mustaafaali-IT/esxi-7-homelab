@@ -1,4 +1,4 @@
-# Phase 2 — IP Plan + Core Services (AD/DNS, DHCP, File, Web Service, Print, Apache)
+# Phase 2 — IP Plan + Core Services (AD/DNS, DHCP, File Server, Client)
 
 ## Goal
 
@@ -13,9 +13,6 @@ This phase will tackle:
 - File Server and DHCP configuration
 - Ubuntu Server assigned static IP (Web service in phase 3)
 - Joining a Windows 11 client to the domain and testing authentication
-- Creating domain users and organizational structure within Active Directory
-- Configuring shared folders and implementing NTFS permissions
-- Validating access control and file share permissions from a domain-joined client
 
 The final environment will simulate a small enterprise network where:
 
@@ -28,7 +25,18 @@ The final environment will simulate a small enterprise network where:
 
 ## What was built
 
-In Progress
+In Phase 2, the lab was converted from basic standalone virtual machines into a structured internal network running core infrastructure services.
+
+The following was successfully implemented:
+
+- A dedicated isolated subnet (192.168.11.0/24) using a new vSwitch with no physical uplink  
+- Static IP assignments for infrastructure servers  
+- Active Directory Domain Services and DNS on WS2019-DC01  
+- DHCP installation, authorization, and scope configuration on WS2019-FS01  
+- Successful domain join of WS2019-FS01 and the Windows 11 client  
+- Internal network communication validated across all machines  
+
+All systems are now operating within the isolated lab network and authenticating through centralized domain services.
 
 ---
 
@@ -38,7 +46,6 @@ In Progress
 2. [Active Directory and DNS (WS2019-DC01)](ad-and-dns-configuration.md)
 3. [File Server and DHCP (WS2019-FS01)](fs-and-dhcp-configuration.md)
 4. [Windows 11 Client (W11-CL01)](windows-client.md)
-5. [AD User Creation, File share and NTFS Permissions](ad-users-and-ntfs-permissions.md) 
 
 ---
 
@@ -142,12 +149,15 @@ The Windows 11 Pro virtual machine was created to simulate a real-world domain-j
 This client allows testing of domain logins, name resolution, IP lease assignment, and overall communication between client and server systems within the isolated 192.168.11.0/24 network.
 
 
-## AD User Creation, File Share and NTFS Permissions
+## Conclusion
 
-For actual steps, view the view the [AD user creation, file share and NTFS permissions documentation](ad-users-and-ntfs-permissions.md)
+Phase 2 established the core services required to simulate a small enterprise network inside ESXi.
 
-This section focuses on creating domain users within Active Directory and configuring shared folders on the File Server with proper NTFS permissions. The goal is to simulate a real-world environment where access to resources is centrally managed and controlled through user accounts and security groups.
+Active Directory, DNS, and DHCP are now functioning together within an isolated internal subnet, and the Windows 11 client is successfully joined to the domain and authenticating against the Domain Controller.
 
-These configurations allow us to validate authentication, authorization, and file access behavior from a domain-joined client, ensuring that identity and access control are functioning correctly within the lab infrastructure.
+With the core infrastructure in place, the lab is now ready to move into Phase 3, where user management, file sharing, and NTFS-based access control and additional services such as web hosting, print services will be implemented and tested.
+
+
+
 
 

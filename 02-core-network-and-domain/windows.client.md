@@ -137,10 +137,12 @@ The Windows 11 client now functions as a fully domain-joined workstation within 
 
 ## Next Steps
 
-Next, we will begin creating domain users in Active Directory to simulate a real-world environment where accounts are centrally managed instead of using local machine users.
+This concludes phase 2, and leads us to phase 3, [Server Roles & Application Services](../03-server-roles-and-application-services/README.md)
+
+First, we will begin creating domain users in Active Directory to simulate a real-world environment where accounts are centrally managed instead of using local machine users.
 
 Shared folders will be created on the File Server, and NTFS permissions will be configured to control which users or groups have access. These permissions will then be tested from the Windows 11 domain-joined client to confirm that authentication and access control are working as expected.
 
 This will allow the lab to move beyond basic domain connectivity and into practical access management and permission validation.
 
-To view next steps, view the [AD user creation, file share and NTFS permissions documentation](ad-users-and-ntfs-permissions.md) 
+To view the full next steps, view the [Phase 3 - Server Roles & Application Services dcoumentation](../03-server-roles-and-application-services/README.md)
