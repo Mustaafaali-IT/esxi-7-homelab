@@ -23,6 +23,7 @@ In progress
 ## Order of Documentation
 
 1. [Active Directory Users and NTFS Permissions](ad-users-and-ntfs-permissions.md)
+2. [Print Server](print-server.md)
 
 ---
 
@@ -57,3 +58,13 @@ For actual steps, view the view the [AD user creation, file share and NTFS permi
 This section focuses on creating domain users within Active Directory and configuring shared folders on the File Server with proper NTFS permissions. The goal is to simulate a real-world environment where access to resources is centrally managed and controlled through user accounts and security groups.
 
 These configurations allow us to validate authentication, authorization, and file access behavior from a domain-joined client, ensuring that identity and access control are functioning correctly within the lab infrastructure.
+
+## Print Server
+
+For actual steps, view the view the [print server documentation](print-server.md)
+
+In this section, Print Services will be installed on WS2019-FS01 and configured to simulate centralized printer management within a domain environment.
+
+A virtual printer will be created and published through Active Directory, allowing domain-joined clients to discover and connect to it through the network. This mirrors how organizations manage shared printers without configuring each workstation manually.
+
+Implementing a print server further strengthens the lab by introducing another centrally managed service commonly found in real business environments.
