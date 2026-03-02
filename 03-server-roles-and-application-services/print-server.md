@@ -10,6 +10,18 @@ The goal of this section is to demonstrate how shared resources can be centrally
 
 ---
 
+### VMs In Use
+
+| VM Name         | Operating System        | vCPU | RAM | Disk  | Provisioning | Assigned Roles                 |
+|-----------------|------------------------|------|-----|-------|-------------|--------------------------------|
+| WS2019-DC01     | Windows Server 2019    | 2    | 6GB | 40GB  | Thick       | Active Directory, DNS |
+| WS2019-FS01     | Windows Server 2019    | 2    | 6GB | 40GB  | Thin        | File Services, DHCP, Print Server |
+| W11-CL01     | Windows 11 Pro      | 2    | 6GB  | 60GB | Thin        | Client machine|
+
+**Note:** WS2019-DC01 was provisioned as Thick by default. This does not negatively impact lab functionality and was intentionally left unchanged.
+
+---
+
 ## Prerequisites
 
 ### Phase 2 - Core Networking Infrastructure
@@ -148,12 +160,13 @@ Print jobs submitted from the client reached the server’s Print Spooler servic
 
 The next step is to begin deploying application services.
 
-The next build will focus on configuring an Apache web server on the Ubuntu Server VM. This will include:
+The next build will focus on configuring an Apache web server on the Ubuntu Server VM, joining it to the lab.local domain and configuriong SSH. This will include:
 
 - Installing and enabling Apache
 - Verifying HTTP service availability
 - Creating an internal DNS record for name-based access
-- Testing web access from the Windows domain client
+- Testing web access from the Windows domain 
+- Joining Ubuntu to the Domain ontrollers centralized AD
 
-To view next steps, view the [Ubutnu based Apache web service](apache-service.md)
+To view next steps, view the [Ubuntu Apache Web Server, Domain Join and SSH documentation](ubuntu-apache-service-domain-join-ssh.md)
 

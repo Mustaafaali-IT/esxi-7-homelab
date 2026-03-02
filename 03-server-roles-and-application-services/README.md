@@ -24,6 +24,7 @@ In progress
 
 1. [Active Directory Users and NTFS Permissions](ad-users-and-ntfs-permissions.md)
 2. [Print Server](print-server.md)
+3. [Ubuntu Apache Web Server, Domain Join and SSH](ubuntu-apache-service-domain-join-ssh.md)
 
 ---
 
